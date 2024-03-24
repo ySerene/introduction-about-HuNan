@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>调查问卷</title>
+<link href="Untitled-1.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="image1/icon.jpg">
+<script>
+	var pArray = new Array("长沙市", "株洲市", "湘潭市", "衡阳市","邵阳市","岳阳市","常德市","张家界市","益阳市","郴州市","永州市","怀化市","娄底市","湘西州");
+			var cArray = new Array();
+			cArray[0] = new Array("橘子洲景区", "岳麓山风景名胜区", "湖南博物院", "岳麓书院", "太平街", "杜甫江阁", "马王堆汉墓");
+			cArray[1] = new Array("株洲方特欢乐世界", "炎帝陵", "醴陵陶瓷博物馆");
+			cArray[2] = new Array("毛泽东同志故居", "韶山风景区", "滴水洞风景区", "泸定桥");
+			cArray[3] = new Array("南岳衡山", "南岳大庙", "石鼓书院", "蔡伦竹海", "南岳忠烈祠");
+	        cArray[4] = new Array("崀山风景名胜区","南山风景名胜区","天一巷风景区","城步南山牧场","白水洞国家级风景名胜区");
+	        cArray[5] = new Array("岳阳楼","洞庭湖旅游度假区","君山岛","石牛寨国家地质公园");
+	        cArray[6] = new Array("桃花源景区","常德诗墙公园","柳叶湖旅游度假区");
+	        cArray[7] = new Array("张家界国家森林公园","天门山国家森林公园","张家界大峡谷","张家界黄龙洞","张家界武陵源风景名胜区","溪布街");
+	        cArray[8] = new Array("沅江洞庭湖","安华茶马古道风景区","云台山风景区");
+	        cArray[9] = new Array("高椅岭旅游区","小东江","东江湖","仰天湖草原风景区","莽山国家森林公园","飞天山旅游区");
+	        cArray[10] = new Array("云冰山旅游景区","九嶷山国家森林公园","上甘棠村");
+	        cArray[11] = new Array("黔阳古城","洪江古商城","排牙山","芷江受降纪念坊","通道皇都侗民族文化村");
+	        cArray[12] = new Array("紫鹊界梯田景区","涟源湄江风景区","梅山龙宫","曾国藩故居");
+	        cArray[13] = new Array("凤凰古城","沱江","芙蓉古镇","矮寨大桥");
+			//将城市名传入
+	        function init() {
+				var city = document.getElementById("city");
+				for(var i = 0; i < pArray.length; i++) {
+					var option = document.createElement("option");
+					option.value = pArray[i];
+					option.text = pArray[i];
+					city.options.add(option);
+				}
+			}
+	        //进行打印
+			function show() {
+				var city = document.getElementById("city");
+				var scene = document.getElementById("scene");
+				var pSelectedIndex = city.selectedIndex - 1;
+				var result = document.getElementById("result");
+				if(pSelectedIndex < 0) {
+					result.innerText = "";
+				} else {
+					result.innerText = pArray[pSelectedIndex];
+					var cSelectedIndex = scene.selectedIndex - 1;
+					if(cSelectedIndex >= 0) {
+						result.innerText += ", " + cArray[pSelectedIndex][cSelectedIndex];
+					}
+				}
+			}
+	        //获取第二个列表
+			function selectCity() {
+				var city = document.getElementById("city");
+				var scene = document.getElementById("scene");
+				var pSelectedIndex = city.selectedIndex - 1;
+				for(var i = scene.options.length - 1; i > 0; i--) {
+					scene.options.remove(i);
+				}
+				if(pSelectedIndex >= 0) {
+					for(var i = 0; i < cArray[pSelectedIndex].length; i++) {
+						var option = document.createElement("option");
+						option.value = cArray[pSelectedIndex][i];
+						option.text = cArray[pSelectedIndex][i];
+						scene.options.add(option);
+					}
+				}
+				show();
+			}
+//注册验证
+function checkForm1(){
+	if(document.form1.uname.value.length<3||document.form1.uname.value.length>10){
+		alert('用户名必须为3-10位字符！');
+		document.form1.uname.focus();
+		return false;
+	}
+	if(document.form1.pwd.value.length<6||document.form1.pwd.value.length>20){
+		alert('密码必须为6-20位字符！');
+		document.form1.pwd.focus();
+		return false;
+	}
+	if(document.form1.pwd.value!=document.getElementById("pwd2").value){
+		alert('两次密码必须一致！');
+		document.form1.pwd.value="";
+		document.getElementById("pwd2").value="";
+		document.form1.pwd.focus();
+		return false;
+	}
+	else{
+		alert('您已成功完成注册！')
+	}
+}
+//倒计时
+var time=10;
+function jump(){
+	if(time>0){
+		document.getElementById("jump").disabled="disabled";
+		document.getElementById("jump").value=(time--)+"秒后将跳转至首页";
+		setTimeout("jump()",1000);
+	}else{
+		location.href='index.html';
+		time=10;
+	}
+}
+//统计输入字符数
+function myCount(){
+	document.getElementById("myResult").innerHTML=document.getElementById("myTextarea").value.length;
+}
+setInterval("myCount()",100);
+</script>
+</head>
+
+<body>
+<div class="header"	>
+	<img src="image1/logo.png" width="100%">
+	</div>
+<div class="ul">  
+			            <li><a href="index.html" target="_blank"> 首页 </a></li>
+			            <li><a href="history.html" target="_blank"> 历史沿革 </a></li>
+			            <li><a href="culture.html" target="_blank"> 历史文化 </a></li>
+			            <li><a href="scene.html" target="_blank"> 风景名胜 </a></li>
+			            <li><a href="questionnaire.html" target="_blank"> 调查问卷 </a></li>
+			        </div>
+<div class="container">
+	<div class="frame">
+	<p>注册</p>
+	<form name="form1" method="post" onsubmit="return checkForm1();">
+	<table class="table">
+        <tr height="40">
+            <td width="100" align="right">用户名：</td><td align="left"><input type="text" name="uname" maxlength="10"/>&nbsp;（3-10位字符）</td>
+        </tr>
+    	<tr height="40">
+            <td width="100" align="right">密码：</td><td align="left"><input type="password" name="pwd" maxlength="20"/>&nbsp;（6-20位字符）</td>
+        </tr>
+        <tr height="40">
+            <td width="100" align="right">重复密码：</td><td align="left"><input type="password" id="pwd2" maxlength="20"/>&nbsp;（6-20位字符）</td>
+        </tr>
+        <tr height="40">
+            <td width="100" align="right"></td><td align="left"><input type="submit" class="button" value="注册" />&nbsp;&nbsp;<input type="reset" class="button" value="重置"/></td>
+        </tr>
+	</table>
+</form>
+	</div>
+	<div class="frame">
+		<p>您最想去的湖南景点</p>
+	   <form>
+			城市：
+			<select id="city" onFocus="init()" onChange="selectCity()">
+				<option value="">请选择城市</option>
+			</select>
+			<br /><br />景点：
+			<select id="scene" onChange="show()">
+				<option value="">请选择景点</option>
+			</select>
+			<br /><br />你选择的结果是：
+			<span id="result"></span></form>
+		</div>	
+<div class="frame">
+	<p>您被湖南的什么所吸引？</p>
+	<div class="choice"><input type="checkbox" name="attract" value="ziran">自然风景</div>
+	<div class="choice"><input type="checkbox" name="attract" value="renwen">人文风景</div>
+	<div class="choice"><input type="checkbox" name="attract" value="xiaochi">特色小吃</div>
+	</div>
+
+<div class="frame">
+	<p>此网站对于您了解我的家乡帮助大吗？（请打分，范围为0~100）</p>
+	<form oninput="result.value=parseInt(a.value)" method="post" action="https://web.zqliu.com/post.php">
+			0 <input type="range" name="aa" id="a" value="50" max="100" min="0">100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<output name="result"></output>
+		</form>
+	</div>
+	<div class="frame" >
+	<p>请您在此处留言</p>
+<textarea id="myTextarea" style="width: 80%;height: 200px; overflow: scroll;margin-left: 10%;"></textarea>
+<div style="margin-top:5px;text-align: right;">已输入 <span id="myResult" style="color:#7AA9CC; font-weight:bold;">0</span> 个字符</div>
+	</div>
+<input type="button" id="jump" value="确认提交" onclick="jump();" class="button"/>
+	</div>
+</body>
+</html>
